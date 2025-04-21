@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Instagram</h1>
+        <button class="button-facebook">Увійти через Facebook</button>
+        <div class="separator">
+            <div></div>
+            <span>АБО</span>
+            <div></div>
+        </div>
+        <form action="{% url 'register'%}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="submit-button">Зареєструватися</button>
+        </form>
+        <p class="info-text">
+            Люди, які користуються нашим сервісом, могли завантажити вашу контактну інформацію в Instagram. <a href="#">Докладніше</a>.
+        </p>
+        <p class="info-text">
+            Реєструючись, ви приймаєте наші <a href="#">Умови</a>, <a href="#">Політику конфіденційності</a> і <a href="#">Політику щодо файлів cookie</a>.
+        </p>
+    </div>
+</body>
+</html>

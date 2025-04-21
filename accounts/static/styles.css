@@ -1,0 +1,119 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 350px;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    color: #262626;
+    margin-bottom: 20px;
+    font-family: 'Grand Hotel', cursive;
+}
+
+.button-facebook {
+    background-color: #1877f2;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.button-facebook:hover {
+    background-color: #155db5;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: #8e8e8e;
+    font-size: 12px;
+}
+
+.separator div {
+    flex: 1;
+    height: 1px;
+    background-color: #dbdbdb;
+}
+
+.separator span {
+    margin: 0 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form p {
+    width: 100%;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px; /* Збільшуємо розмір полів */
+    margin: 10px 0; /* Додаємо більше простору між полями */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px; /* Збільшуємо розмір шрифту */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* Вирівнювання тексту по центру */
+    box-sizing: border-box; /* Враховуємо padding у ширині полів */
+}
+
+.submit-button {
+    background-color: #0095f6;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 10px; /* Збільшуємо розмір кнопки */
+    width: 100%;
+    cursor: pointer;
+    margin-top: 20px; /* Додаємо більше простору зверху */
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #007bbf;
+}
+
+.info-text {
+    font-size: 12px;
+    color: #8e8e8e;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.info-text a {
+    color: #00376b;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.info-text a:hover {
+    text-decoration: underline;
+}

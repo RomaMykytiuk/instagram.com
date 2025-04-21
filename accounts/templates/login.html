@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <link rel="stylesheet" href="{% static 'login_styles.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Instagram</h1>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="{% url 'login'%}" method="POST">
+            {% csrf_token %}
+            {{ form.login.label_tag }} {{ form.login }}
+            {{ form.password.label_tag }} {{ form.password }}
+
+            <button type="submit">Увійти</button>
+        </form>
+<!--        <div class="or">АБО</div>-->
+<!--        <a href="/facebook-login" class="facebook-login">Увійти через Facebook</a>-->
+<!--        <p><a href="/forgot-password">Забули пароль?</a></p>-->
+<!--        <div class="signup">-->
+<!--            Не маєте облікового запису? <a href="/instagram/accounts/emailsingup/">Зареєструйтеся</a>-->
+<!--        </div>-->
+    </div>
+</body>
+</html>

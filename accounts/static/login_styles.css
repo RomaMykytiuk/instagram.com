@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+.login-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+}
+.login-container h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #262626;
+}
+form {
+    text-align: left;
+}
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: block;
+}
+button {
+    background-color: #0095f6;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+}
+button:hover {
+    background-color: #007bb5;
+    cursor: pointer;
+}
+.or {
+    margin: 15px 0;
+    color: #888;
+}
+.facebook-login {
+    color: #385185;
+    font-weight: bold;
+    text-decoration: none;
+}
+.facebook-login:hover {
+    text-decoration: underline;
+}
+.signup {
+    margin-top: 20px;
+}
+.signup a {
+    color: #0095f6;
+    text-decoration: none;
+}
+.signup a:hover {
+    text-decoration: underline;
+}

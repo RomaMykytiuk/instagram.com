@@ -16,11 +16,16 @@
             <span>АБО</span>
             <div></div>
         </div>
-        <form action="{% url 'register'%}" method="POST">
+        <form action="{% url 'accounts:register'%}" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="submit-button">Зареєструватися</button>
         </form>
+        <p>
+        <div class="signup">
+            У вас є обліковий запис? <a href="{% url 'accounts:login'%}">login</a>
+        </div>
+        <p>
         <p class="info-text">
             Люди, які користуються нашим сервісом, могли завантажити вашу контактну інформацію в Instagram. <a href="#">Докладніше</a>.
         </p>

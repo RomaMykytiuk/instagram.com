@@ -12,11 +12,11 @@ def login_view(request):
             user = form.user
             login(request, user)
             messages.success(request, "Ви успішно Увійшли!")
-            return redirect('profile')
+            return redirect('user:profile')
         else: messages.error(request, "Помилка")
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'accounts/login.html', {'form': form})
 
 
 
@@ -26,12 +26,13 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Account created!')
-            return redirect('login')
+            return redirect('accounts:login')
         else:
             messages.error(request, "Помилка!")
     else:
         form = UserRegistrationForm()
-    return render(request, "register.html", {"form": form})
+    return render(request, "accounts/register.html", {"form": form})
+
 
 
 

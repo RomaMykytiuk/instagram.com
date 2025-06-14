@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редагування профілю</title>
+    <link rel="stylesheet" href="styles_edit_profile.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Редагування профілю</h2>
+        <form action="#" method="POST">
+            <label for="bio">Біографія:</label>
+            <textarea id="bio" name="bio" rows="4"></textarea>
+
+            <label for="location">Місцезнаходження:</label>
+            <input type="text" id="location" name="location">
+
+            <label for="birth_date">Дата народження:</label>
+            <input type="date" id="birth_date" name="birth_date">
+
+            <label for="profile_picture">Фото профілю:</label>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+
+            <button type="submit">Зберегти зміни</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+
+<!--<!doctype html>-->
+<!--<html lang="en"><head><meta charset="UTF-8"><meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Document</title></head><body><form method="POST">{% csrf_token %}{{ form.as_p }}<button type="submit" class="submit-button">Зберегти</button></form></body></html>-->

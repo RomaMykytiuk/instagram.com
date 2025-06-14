@@ -12,7 +12,7 @@ def login_view(request):
             user = form.user
             login(request, user)
             messages.success(request, "Ви успішно Увійшли!")
-            return redirect('user:profile')
+            return redirect('user:profile',username=user.username)
         else: messages.error(request, "Помилка")
     else:
         form = LoginForm()

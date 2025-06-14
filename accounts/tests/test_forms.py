@@ -107,3 +107,20 @@ class UserLoginFormTests(TestCase):
         self.assertIn('__all__',form.errors)
         self.assertEqual(form.errors['__all__'][0],'невірний username/email  або пароль')
 
+    def test_invalid_email(self):
+        form = LoginForm(data={
+            'login': 'test42@gmail.com',
+            'password': '0604'
+        })
+        self.assertFalse(form.is_valid())
+        self.assertIn('__all__', form.errors)
+        self.assertEqual(form.errors['__all__'][0], 'невірний username/email  або пароль')
+
+    def test_invalid_password(self):
+        form = LoginForm(data={
+            'login':'test',
+            'password':'0000'
+        })
+        self.assertFalse(form.is_valid())
+        self.assertIn('__all__', form.errors)
+        self.assertEqual(form.errors['__all__'][0], 'невірний username/email  або пароль')

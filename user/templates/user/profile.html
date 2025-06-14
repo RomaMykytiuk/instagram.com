@@ -1,0 +1,48 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>{{profile.user.username}}</h2>-->
+<!--</body>-->
+<!--</html>-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль користувача</title>
+    <link rel="stylesheet" href="{% static 'styles_profile.css' %}">
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="{% static 'img/default_avatar.png' %}" alt="Аватар" class="avatar">
+            <div class="profile-info">
+                <h2>{{ profile.user.username }}</h2>
+                <p>{{ profile.user.full_name }}</p>
+                <div class="stats">
+                    <span>Дописи: {{ user.posts_count }}</span>
+                    <span>Читачі: {{ user.followers_count }}</span>
+                    <span>Відстежуються: {{ user.following_count }}</span>
+                </div>
+                <a href="{%url 'user:edit_profile' username=profile.user.username %}"><img src="{% static 'img/edit.png' %}" alt="edit"></a>
+            </div>
+        </div>
+
+        <div class="profile-posts">
+            {% for post in user.posts %}
+                <div class="post">
+                    <img src="{{ post.image_url }}" alt="Фото">
+                    <p>{{ post.likes }} лайків</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+</body>
+</html>

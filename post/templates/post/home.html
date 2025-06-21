@@ -1,0 +1,108 @@
+<!--<!doctype html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <title>Document</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    {% for post in posts.all %}-->
+<!--    {% for image in post.images.all %}-->
+<!--    <img src="{{ image.image.url }}" alt=" 404 ">-->
+<!--    {% endfor %}-->
+<!--    {{ post.caption }}-->
+<!--    {% endfor %}-->
+<!--</body>-->
+<!--</html>-->
+<!--{% load static %}-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Home</title>-->
+<!--  <link rel="stylesheet" href="{% static 'styles_home.css' %}">-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="feed-container">-->
+<!--    {% for post in posts %}-->
+<!--      <div class="post-card">-->
+<!--        <div class="post-header">-->
+<!--          <img src="{% static 'img/default_avatar.png' %}" class="avatar" alt="avatar">-->
+<!--          <span class="username">{{ post.author.username }}</span>-->
+<!--        </div>-->
+<!--        <div class="post-images">-->
+<!--          {% for image in post.images.all %}-->
+<!--            <img src="{{ image.image.url }}" class="post-image" alt="post image">-->
+<!--          {% endfor %}-->
+<!--        </div>-->
+<!--        <div class="post-actions">-->
+<!--          <button class="like-btn">❤️</button>-->
+<!--          <span class="like-count">0</span>-->
+<!--        </div>-->
+<!--        <div class="caption">-->
+<!--          <strong>{{ post.author.username }}</strong> {{ post.caption }}-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    {% endfor %}-->
+<!--  </div>-->
+
+<!--  <script src="{% static 'js/like.js' %}"></script>-->
+<!--</body>-->
+<!--</html>-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Головна</title>
+  <link rel="stylesheet" href="{% static 'styles_home.css' %}">
+</head>
+<body>
+  <div class="sidebar">
+    <ul>
+      <li><a href="{% url 'post:home' %}"><img src="{% static 'img/home.svg' %}" alt="home"> Головна</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/search.svg' %}" alt="search"> Пошук</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/notify.svg' %}" alt="notify"> Сповіщення</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/plus.svg' %}" alt="create"> Створити</a></li>
+      <li><a href="{% url 'user:profile' request.user.username %}"><img src="{% static 'img/user.svg' %}" alt="profile"> Профіль</a></li>
+    </ul>
+  </div>
+
+  <div class="feed-container">
+    {% for post in posts %}
+      <div class="post-card">
+        <div class="post-header">
+          <img src="{% static 'img/default_avatar.png' %}" class="avatar" alt="avatar">
+          <span class="username">{{ post.author.username }}</span>
+        </div>
+
+        <div class="post-images">
+          {% for image in post.images.all %}
+            <img src="{{ image.image.url }}" class="post-image" alt="post image">
+          {% endfor %}
+        </div>
+
+        <div class="post-actions">
+          <button class="like-btn {% if user in post.likes %}liked{% endif %}"
+                  data-post-id="{{ post.id }}">❤️</button>
+          <span class="like-count" id="like-count-{{ post.id }}">{{ post.like_set.count }}</span>
+        </div>
+
+        <div class="caption">
+          <strong>{{ post.author.username }}</strong> {{ post.caption }}
+        </div>
+
+        <div class="tags">
+          {% for tag in post.post_tags.all %}
+            <span class="tag">#{{ tag.tag.name }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <script src="{% static 'like.js' %}"></script>
+</body>
+</html>

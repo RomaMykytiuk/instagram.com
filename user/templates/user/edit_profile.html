@@ -1,26 +1,30 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Редагування профілю</title>
-    <link rel="stylesheet" href="styles_edit_profile.css">
+    <link rel="stylesheet" href="{% static 'styles_edit_profile.css' %}">
 </head>
 <body>
     <div class="profile-container">
         <h2>Редагування профілю</h2>
-        <form action="#" method="POST">
-            <label for="bio">Біографія:</label>
-            <textarea id="bio" name="bio" rows="4"></textarea>
+        <form method="POST">
+             {% csrf_token %}
+                {{ form.as_p }}
 
-            <label for="location">Місцезнаходження:</label>
-            <input type="text" id="location" name="location">
+<!--            <label for="bio">Біографія:</label>-->
+<!--            <textarea id="bio" name="bio" rows="4"></textarea>-->
 
-            <label for="birth_date">Дата народження:</label>
-            <input type="date" id="birth_date" name="birth_date">
+<!--            <label for="location">Місцезнаходження:</label>-->
+<!--            <input type="text" id="location" name="location">-->
 
-            <label for="profile_picture">Фото профілю:</label>
-            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+<!--            <label for="birth_date">Дата народження:</label>-->
+<!--            <input type="date" id="birth_date" name="birth_date">-->
+
+<!--            <label for="profile_picture">Фото профілю:</label>-->
+<!--            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">-->
 
             <button type="submit">Зберегти зміни</button>
         </form>

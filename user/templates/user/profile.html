@@ -26,18 +26,21 @@
                 <h2>{{ profile.user.username }}</h2>
                 <p>{{ profile.user.full_name }}</p>
                 <div class="stats">
-                    <span>Дописи: {{ user.posts_count }}</span>
-                    <span>Читачі: {{ user.followers_count }}</span>
-                    <span>Відстежуються: {{ user.following_count }}</span>
+                    <span>Дописи: {{ profile.user.posts_count }}</span>
+                    <span>Читачі: {{ profile.user.followers_count }}</span>
+                    <span>Відстежуються: {{ profile.user.following_count }}</span>
                 </div>
                 <a href="{%url 'user:edit_profile' username=profile.user.username %}"><img src="{% static 'img/edit.png' %}" alt="edit"></a>
             </div>
         </div>
 
         <div class="profile-posts">
-            {% for post in user.posts %}
+            {% for post in profile.user.posts.all %}
                 <div class="post">
-                    <img src="{{ post.image_url }}" alt="Фото">
+                        {% for image in post.images.all %}
+                         <img src="{{ image.image.url }}" alt=" 404 ">
+                    {% endfor %}
+                            {{ post.caption }}
                     <p>{{ post.likes }} лайків</p>
                 </div>
             {% endfor %}

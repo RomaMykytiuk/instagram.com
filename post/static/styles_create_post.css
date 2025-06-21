@@ -1,0 +1,46 @@
+/* Контейнер форми */
+.post-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.post-card form label {
+    font-size: 16px;
+    color: #f1f1f1;
+    margin-bottom: 4px;
+}
+
+.post-card form input[type="text"],
+.post-card form textarea,
+.post-card form input[type="file"] {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    padding: 10px 12px;
+    font-size: 15px;
+    color: #f1f1f1;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+}
+
+.post-card form input[type="text"]:focus,
+.post-card form textarea:focus {
+    border-color: #888;
+}
+
+.post-card button[type="submit"] {
+    align-self: flex-start;
+    background-color: #3897f0;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.post-card button[type="submit"]:hover {
+    background-color: #2f82d6;
+}

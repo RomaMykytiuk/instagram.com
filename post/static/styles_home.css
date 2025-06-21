@@ -1,0 +1,155 @@
+/* 🔧 Загальні стилі */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #f1f1f1;
+    margin-left: 320px; /* 🔥 ширина лівої панелі */
+}
+
+/* 🧭 Ліва навігаційна панель */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 100%;
+    background-color: #1e1e1e;
+    border-right: 1px solid #333;
+    padding-top: 50px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0 40px;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 28px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #f1f1f1;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+/* 🛠 Фіксація кольору, щоб не ставало фіолетовим */
+.sidebar ul li a,
+.sidebar ul li a:visited,
+.sidebar ul li a:focus,
+.sidebar ul li a:active {
+    color: #f1f1f1 !important;
+}
+
+.sidebar ul li a:hover {
+    background-color: #2c2c2c;
+}
+
+.sidebar ul li a img {
+    width: 30px;
+    height: 30px;
+}
+
+/* 📦 Контейнер для контенту */
+.feed-container {
+    max-width: 880px;
+    margin: 40px auto;
+}
+
+/* 🧱 Пост */
+.post-card {
+    background: #1e1e1e;
+    border: 1px solid #2f2f2f;
+    border-radius: 6px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+}
+
+/* 👤 Хедер */
+.post-header {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 1px solid #444;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 18px;
+    color: #fafafa;
+}
+
+/* 📷 Зображення */
+.post-images img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 620px;
+    object-fit: cover;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+/* ❤️ Дії */
+.post-actions {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.like-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+    color: #f1f1f1;
+    transition: color 0.2s ease;
+}
+
+.like-btn.liked {
+    color: #e74c3c;
+}
+
+.like-count {
+    font-size: 16px;
+}
+
+/* ✍️ Підпис */
+.caption {
+    padding: 0 12px 10px;
+    color: #dddddd;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* 🏷️ Теги */
+.tags {
+    padding: 0 12px 12px;
+}
+
+.tag {
+    background-color: #2e2e2e;
+    padding: 5px 12px;
+    border-radius: 14px;
+    margin-right: 6px;
+    font-size: 14px;
+    color: #bfbfbf;
+}

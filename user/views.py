@@ -19,7 +19,7 @@ def edit_profile_view(request,username):
     profile = get_object_or_404(Profile, user=request.user)
 
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, request.FILED, instance=profile)
+        form = EditProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return redirect('user:profile', username=username)

@@ -5,7 +5,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #121212;
     color: #f1f1f1;
-    margin-left: 320px; /* 🔥 ширина лівої панелі */
+    margin-left: 320px;
 }
 
 /* 🧭 Ліва навігаційна панель */
@@ -42,7 +42,6 @@ body {
     transition: background 0.2s ease;
 }
 
-/* 🛠 Фіксація кольору, щоб не ставало фіолетовим */
 .sidebar ul li a,
 .sidebar ul li a:visited,
 .sidebar ul li a:focus,
@@ -59,7 +58,7 @@ body {
     height: 30px;
 }
 
-/* 📦 Контейнер для контенту */
+/* 📦 Контейнер */
 .feed-container {
     max-width: 880px;
     margin: 40px auto;
@@ -98,16 +97,15 @@ body {
 
 /* 📷 Зображення */
 .post-images img {
-    width: 100%;
-    height: auto;
-    display: block;
-    max-height: 620px;
-    object-fit: cover;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
 }
 
-/* ❤️ Дії */
+/* ❤️ Лайки */
 .post-actions {
     padding: 12px;
     display: flex;
@@ -152,4 +150,55 @@ body {
     margin-right: 6px;
     font-size: 14px;
     color: #bfbfbf;
+}
+
+/* 💬 Коментарі */
+.comments {
+    padding: 0 12px 10px;
+    margin-top: 8px;
+}
+
+.comment {
+    color: #cccccc;
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.comment-empty {
+    color: #777777;
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* 📝 Форма */
+.comment-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 12px 16px;
+    margin-top: 10px;
+}
+
+.comment-form input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #2a2a2a;
+    color: #f1f1f1;
+    font-size: 15px;
+}
+
+.comment-submit {
+    background-color: #3897f0;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.comment-submit:hover {
+    background-color: #2f82d6;
 }

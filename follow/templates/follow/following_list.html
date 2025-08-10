@@ -1,0 +1,8 @@
+<h2>Користувачі, яких підписався {{ subscriber.username }}</h2>
+<ul>
+  {% for sub in following %}
+    <li>{{ sub.target.username }}</li>
+  {% empty %}
+    <li>Немає підписок 😢</li>
+  {% endfor %}
+</ul>

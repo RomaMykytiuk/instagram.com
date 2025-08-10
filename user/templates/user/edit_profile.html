@@ -2,38 +2,33 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редагування профілю</title>
-    <link rel="stylesheet" href="{% static 'styles_edit_profile.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редагування профілю</title>
+  <link rel="stylesheet" href="{% static 'styles_edit_profile.css' %}">
 </head>
 <body>
-    <div class="profile-container">
-        <h2>Редагування профілю</h2>
-        <form method="POST">
-             {% csrf_token %}
-                {{ form.as_p }}
 
-<!--            <label for="bio">Біографія:</label>-->
-<!--            <textarea id="bio" name="bio" rows="4"></textarea>-->
+  <!-- 🧭 Ліва панель навігації -->
+  <div class="sidebar">
+    <ul>
+      <li><a href="{% url 'post:home' %}"><img src="{% static 'img/home.svg' %}" alt="home"> Головна</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/search.svg' %}" alt="search"> Пошук</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/notify.svg' %}" alt="notify"> Сповіщення</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/plus.svg' %}" alt="create"> Створити</a></li>
+      <li><a href="{% url 'user:profile' request.user.username %}"><img src="{% static 'img/user.svg' %}" alt="profile"> Профіль</a></li>
+    </ul>
+  </div>
 
-<!--            <label for="location">Місцезнаходження:</label>-->
-<!--            <input type="text" id="location" name="location">-->
+  <!-- ✍️ Контейнер форми -->
+  <div class="edit-container">
+    <h2>Редагування профілю</h2>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Зберегти зміни</button>
+    </form>
+  </div>
 
-<!--            <label for="birth_date">Дата народження:</label>-->
-<!--            <input type="date" id="birth_date" name="birth_date">-->
-
-<!--            <label for="profile_picture">Фото профілю:</label>-->
-<!--            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">-->
-
-            <button type="submit">Зберегти зміни</button>
-        </form>
-    </div>
 </body>
 </html>
-
-
-
-
-<!--<!doctype html>-->
-<!--<html lang="en"><head><meta charset="UTF-8"><meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Document</title></head><body><form method="POST">{% csrf_token %}{{ form.as_p }}<button type="submit" class="submit-button">Зберегти</button></form></body></html>-->

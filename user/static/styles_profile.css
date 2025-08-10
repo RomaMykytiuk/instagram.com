@@ -1,60 +1,175 @@
+/* 🔧 Загальні стилі */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fafafa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #f1f1f1;
+  margin-left: 320px;
 }
 
-.profile-container {
-    width: 60%;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+/* 🧭 Ліва панель навігації */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100%;
+  background-color: #1e1e1e;
+  border-right: 1px solid #333;
+  padding-top: 50px;
 }
 
+.sidebar ul {
+  list-style: none;
+  padding: 0 40px;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin: 28px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #f1f1f1;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.sidebar ul li a:hover {
+  background-color: #2c2c2c;
+}
+
+.sidebar ul li a img {
+  width: 30px;
+  height: 30px;
+}
+
+/* 📦 Контейнер */
+.feed-container {
+  max-width: 880px;
+  margin: 40px auto;
+}
+
+/* 👤 Хедер профілю */
 .profile-header {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding: 40px 12px;
+  border-bottom: 1px solid #333;
 }
 
-.avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 20px;
+.profile-avatar-large {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #444;
 }
 
-.profile-info h2 {
-    font-size: 24px;
+.profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.stats {
-    display: flex;
-    gap: 10px;
-    font-size: 16px;
+.profile-username-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.profile-posts {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
+.profile-username-row h2 {
+  font-size: 26px;
+  margin: 0;
+  color: #fafafa;
 }
 
-.post img {
-    width: 100%;
-    border-radius: 5px;
+.profile-button {
+  background-color: #262626;
+  color: #f1f1f1;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+  text-decoration: none;
 }
 
-
-.profile-info a img {
-    width: 42px; /* Задаємо розмір */
-    height: 42px;
-    display: inline-block; /* Забезпечує коректне відображення */
+.profile-button:hover {
+  background-color: #333;
 }
 
-.profile-header {
-    display: flex;
-    align-items: center;
-    gap: 20px; /* Відстань між елементами */
+.profile-stats {
+  display: flex;
+  gap: 30px;
+  font-size: 15px;
+  color: #ccc;
+}
+
+.profile-fullname {
+  color: #aaa;
+  font-size: 15px;
+}
+
+/* 🖼️ Галерея */
+.profile-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 30px 12px;
+}
+
+.gallery-item {
+  background-color: #1e1e1e;
+  border: 1px solid #2f2f2f;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-item img.gallery-image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-bottom: 1px solid #333;
+}
+
+/* ℹ️ Інформація про допис */
+.gallery-info {
+  padding: 10px 12px;
+  background-color: #1a1a1a;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.gallery-likes {
+  margin-bottom: 6px;
+  color: #e74c3c;
+}
+
+.gallery-tags {
+  margin-bottom: 6px;
+}
+
+.gallery-tags .tag {
+  background-color: #2e2e2e;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-right: 5px;
+  font-size: 13px;
+  color: #bfbfbf;
+  display: inline-block;
+}
+
+.gallery-caption {
+  color: #aaa;
+  line-height: 1.4;
 }

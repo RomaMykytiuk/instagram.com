@@ -28,5 +28,3 @@ def create_or_update_userprofile(instance,**kwargs):
     Profile.objects.update_or_create(user=instance,defaults={})
 
 
-
-

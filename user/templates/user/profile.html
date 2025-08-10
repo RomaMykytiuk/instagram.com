@@ -1,51 +1,132 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h2>{{profile.user.username}}</h2>-->
-<!--</body>-->
-<!--</html>-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профіль користувача</title>
-    <link rel="stylesheet" href="{% static 'styles_profile.css' %}">
+  <meta charset="UTF-8">
+  <title>{{ profile_user.username }} • Профіль</title>
+  <link rel="stylesheet" href="{% static 'styles_profile.css' %}">
 </head>
 <body>
 
-    <div class="profile-container">
-        <div class="profile-header">
-            <img src="{% static 'img/default_avatar.png' %}" alt="Аватар" class="avatar">
-            <div class="profile-info">
-                <h2>{{ profile.user.username }}</h2>
-                <p>{{ profile.user.full_name }}</p>
-                <div class="stats">
-                    <span>Дописи: {{ profile.user.posts_count }}</span>
-                    <span>Читачі: {{ profile.user.followers_count }}</span>
-                    <span>Відстежуються: {{ profile.user.following_count }}</span>
-                </div>
-                <a href="{%url 'user:edit_profile' username=profile.user.username %}"><img src="{% static 'img/edit.png' %}" alt="edit"></a>
-            </div>
+  <!-- 🔍 Ліва панель -->
+  <div class="sidebar">
+    <ul>
+      <li><a href="{% url 'post:home' %}"><img src="{% static 'img/home.svg' %}" alt="home"> Головна</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/search.svg' %}" alt="search"> Пошук</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/notify.svg' %}" alt="notify"> Сповіщення</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/plus.svg' %}" alt="create"> Створити</a></li>
+      <li><a href="{% url 'user:profile' request.user.username %}"><img src="{% static 'img/user.svg' %}" alt="profile"> Профіль</a></li>
+    </ul>
+  </div>
+
+  <!-- 👤 Профіль -->
+  <div class="feed-container">
+    <div class="profile-header">
+      <img src="{% static 'img/default_avatar.png' %}" class="profile-avatar-large" alt="avatar">
+
+      <div class="profile-meta">
+        <div class="profile-username-row">
+          <h2>{{ profile_user.username }}</h2>
+          {% if request.user != profile_user %}
+            <button id="follow-btn"
+                    class="profile-button"
+                    data-username="{{ profile_user.username }}">
+              {% if is_following %}
+                Відписатись
+              {% else %}
+                Відстежувати
+              {% endif %}
+            </button>
+          {% else %}
+            <a href="{% url 'user:edit_profile' username=profile_user.username %}" class="profile-button">Редагувати</a>
+          {% endif %}
         </div>
 
-        <div class="profile-posts">
-            {% for post in profile.user.posts.all %}
-                <div class="post">
-                        {% for image in post.images.all %}
-                         <img src="{{ image.image.url }}" alt=" 404 ">
-                    {% endfor %}
-                            {{ post.caption }}
-                    <p>{{ post.likes }} лайків</p>
-                </div>
-            {% endfor %}
+        <div class="profile-stats">
+          <span><strong>{{ posts_count }}</strong> дописи</span>
+          <span><strong id="followers-count">{{ followers_count }}</strong> підписники</span>
+          <span><strong>{{ following_count }}</strong> підписки</span>
         </div>
+
+        <p class="profile-fullname">{{ profile_user.full_name }}</p>
+      </div>
     </div>
-    
+
+    <!-- 🖼️ Галерея -->
+    <div class="profile-gallery">
+      {% for post in posts %}
+        {% for image in post.images.all %}
+          <div class="gallery-item">
+            <img src="{{ image.image.url }}" alt="post image" class="gallery-image">
+
+            <div class="gallery-info">
+              <div class="gallery-likes">❤️ {{ post.like_set.count }}</div>
+              <div class="gallery-tags">
+                {% for tag in post.post_tags.all %}
+                  <span class="tag">#{{ tag.tag.name }}</span>
+                {% endfor %}
+              </div>
+              <div class="gallery-caption">
+                <strong>{{ post.author.username }}</strong>: {{ post.caption }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- ⚡ AJAX логіка -->
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("follow-btn");
+    if (!btn) return;
+
+    // CSRF з cookies
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.startsWith(name + "=")) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getCookie("csrftoken");
+
+    btn.addEventListener("click", function () {
+      const username = btn.dataset.username;
+      const action = btn.textContent.trim() === "Відстежувати" ? "follow" : "unfollow";
+
+      fetch(`/follow/${action}/${username}/`, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrftoken,
+          "Content-Type": "application/json"
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+          btn.textContent = action === "follow" ? "Відписатись" : "Відстежувати";
+
+          const countElem = document.getElementById("followers-count");
+          let currentCount = parseInt(countElem.textContent);
+          countElem.textContent = action === "follow" ? currentCount + 1 : currentCount - 1;
+        } else {
+          console.error("Помилка підписки:", response.status);
+        }
+      })
+      .catch(err => {
+        console.error("Запит не виконано:", err);
+      });
+    });
+  });
+  </script>
+
 </body>
 </html>

@@ -5,7 +5,6 @@
 <!--    <button type="submit">Створити пост</button>-->
 <!--</form>-->
 
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="uk">
@@ -15,28 +14,38 @@
   <link rel="stylesheet" href="{% static 'styles_home.css' %}">
 </head>
 <body>
-  <!-- 🔍 Ліва навігація -->
+  <!-- 🔍 Навігаційна панель -->
   <div class="sidebar">
     <ul>
       <li><a href="{% url 'post:home' %}"><img src="{% static 'img/home.svg' %}" alt="home"> Головна</a></li>
-      <li><a href="#"><img src="{% static 'img/search.svg' %}" alt="search"> Пошук</a></li>
-      <li><a href="#"><img src="{% static 'img/notify.svg' %}" alt="notify"> Сповіщення</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/search.svg' %}" alt="search"> Пошук</a></li>
+      <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/notify.svg' %}" alt="notify"> Сповіщення</a></li>
       <li><a href="{% url 'post:create_post' %}"><img src="{% static 'img/plus.svg' %}" alt="create"> Створити</a></li>
-      <li><a href="#"><img src="{% static 'img/user.svg' %}" alt="profile"> Профіль</a></li>
+      <li><a href="{% url 'user:profile' request.user.username %}"><img src="{% static 'img/user.svg' %}" alt="profile"> Профіль</a></li>
     </ul>
   </div>
 
-  <!-- 🖊️ Контейнер форми -->
+  <!-- 📝 Форма створення поста -->
   <div class="feed-container">
     <div class="post-card">
       <div class="post-header">
-        <h2 style="margin: 0;">Створити новий пост</h2>
+        <h2 style="margin: 0;">Новий пост</h2>
       </div>
+
       <form method="POST" enctype="multipart/form-data" style="padding: 20px;">
         {% csrf_token %}
-        {{ post_form.as_p }}
-        {{ image_form.as_p }}
-        <button type="submit" class="like-btn" style="margin-top: 15px;">Створити пост</button>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          {{ post_form.caption.label_tag }}
+          {{ post_form.caption }}
+
+          {{ post_form.tags.label_tag }}
+          {{ post_form.tags }}
+
+          {{ image_form.image.label_tag }}
+          {{ image_form.image }}
+        </div>
+
+        <button type="submit" class="like-btn" style="margin-top: 20px;">Створити пост</button>
       </form>
     </div>
   </div>

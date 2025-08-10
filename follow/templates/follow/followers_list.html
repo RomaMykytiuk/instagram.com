@@ -1,0 +1,8 @@
+<h2>Підписники {{ target.username }}</h2>
+<ul>
+  {% for sub in followers %}
+    <li>{{ sub.subscriber.username }}</li>
+  {% empty %}
+    <li>Немає підписників 😢</li>
+  {% endfor %}
+</ul>

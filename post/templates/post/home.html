@@ -1,56 +1,3 @@
-<!--<!doctype html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport"-->
-<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
-<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
-<!--    <title>Document</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--    {% for post in posts.all %}-->
-<!--    {% for image in post.images.all %}-->
-<!--    <img src="{{ image.image.url }}" alt=" 404 ">-->
-<!--    {% endfor %}-->
-<!--    {{ post.caption }}-->
-<!--    {% endfor %}-->
-<!--</body>-->
-<!--</html>-->
-<!--{% load static %}-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <title>Home</title>-->
-<!--  <link rel="stylesheet" href="{% static 'styles_home.css' %}">-->
-<!--</head>-->
-<!--<body>-->
-<!--  <div class="feed-container">-->
-<!--    {% for post in posts %}-->
-<!--      <div class="post-card">-->
-<!--        <div class="post-header">-->
-<!--          <img src="{% static 'img/default_avatar.png' %}" class="avatar" alt="avatar">-->
-<!--          <span class="username">{{ post.author.username }}</span>-->
-<!--        </div>-->
-<!--        <div class="post-images">-->
-<!--          {% for image in post.images.all %}-->
-<!--            <img src="{{ image.image.url }}" class="post-image" alt="post image">-->
-<!--          {% endfor %}-->
-<!--        </div>-->
-<!--        <div class="post-actions">-->
-<!--          <button class="like-btn">❤️</button>-->
-<!--          <span class="like-count">0</span>-->
-<!--        </div>-->
-<!--        <div class="caption">-->
-<!--          <strong>{{ post.author.username }}</strong> {{ post.caption }}-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    {% endfor %}-->
-<!--  </div>-->
-
-<!--  <script src="{% static 'js/like.js' %}"></script>-->
-<!--</body>-->
-<!--</html>-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="uk">
@@ -60,6 +7,8 @@
   <link rel="stylesheet" href="{% static 'styles_home.css' %}">
 </head>
 <body>
+
+  <!-- 🧭 Ліва навігаційна панель -->
   <div class="sidebar">
     <ul>
       <li><a href="{% url 'post:home' %}"><img src="{% static 'img/home.svg' %}" alt="home"> Головна</a></li>
@@ -70,39 +19,115 @@
     </ul>
   </div>
 
+  <!-- 📜 Стрічка дописів -->
   <div class="feed-container">
     {% for post in posts %}
       <div class="post-card">
+
+        <!-- 👤 Автор -->
         <div class="post-header">
           <img src="{% static 'img/default_avatar.png' %}" class="avatar" alt="avatar">
           <span class="username">{{ post.author.username }}</span>
         </div>
 
+        <!-- 🖼️ Зображення -->
+        {% if post.images.all %}
         <div class="post-images">
           {% for image in post.images.all %}
             <img src="{{ image.image.url }}" class="post-image" alt="post image">
           {% endfor %}
         </div>
+        {% endif %}
 
-        <div class="post-actions">
-          <button class="like-btn {% if user in post.likes %}liked{% endif %}"
-                  data-post-id="{{ post.id }}">❤️</button>
-          <span class="like-count" id="like-count-{{ post.id }}">{{ post.like_set.count }}</span>
-        </div>
 
+        <div id="like-container-{{ post.id }}">
+  <button type="button" data-url="{% url 'post:like_post_ajax' post.id %}" id="like-btn-{{ post.id }}">
+  {% if post.is_liked  %}
+      ❤
+    {% else %}
+      ❤️
+    {% endif %}
+  </button>
+  <span id="like-count-{{ post.id }}">{{ post.likes.count }}</span> лайків
+</div>
+
+
+        <!-- ✍️ Підпис -->
         <div class="caption">
           <strong>{{ post.author.username }}</strong> {{ post.caption }}
         </div>
 
+        <!-- 🏷️ Теги -->
+        {% if post.post_tags.all %}
         <div class="tags">
           {% for tag in post.post_tags.all %}
             <span class="tag">#{{ tag.tag.name }}</span>
           {% endfor %}
         </div>
+        {% endif %}
+
+        <!-- 💬 Коментарі -->
+        <div class="comments">
+          {% for comment in post.comments.all %}
+            <div class="comment">
+              <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
+            </div>
+          {% empty %}
+            <div class="comment-empty">Ще ніхто не прокоментував 🙈</div>
+          {% endfor %}
+        </div>
+
+        <!-- 📝 Форма коментарів -->
+        <form method="POST" class="comment-form">
+          {% csrf_token %}
+          <input type="hidden" name="post_id" value="{{ post.id }}">
+          {{ comment_form.content }}
+          <button type="submit" class="comment-submit">Надіслати</button>
+        </form>
+
       </div>
     {% endfor %}
   </div>
 
-  <script src="{% static 'like.js' %}"></script>
+  <!-- 🔗 JavaScript -->
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+document.querySelectorAll('[id^="like-btn-"]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        const url = btn.getAttribute('data-url');
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            btn.textContent = data.is_liked ? '❤' : '❤️';
+            const postId = btn.id.split('-')[2];
+            document.getElementById('like-count-' + postId).textContent = data.likes_count;
+        })
+        .catch(error => {
+            alert("Помилка при відправці лайку");
+        });
+    });
+});
+</script>
+
 </body>
 </html>
